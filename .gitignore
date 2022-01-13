@@ -4,6 +4,7 @@
 # .tfstate files
 *.tfstate
 *.tfstate.*
+modules/*/.terraform
 
 # Crash log files
 crash.log
