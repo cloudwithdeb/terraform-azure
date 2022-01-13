@@ -23,21 +23,3 @@ resource "azurerm_app_configuration" "appconf" {
   location            = azurerm_resource_group.mystorekeeper-rg.location
   sku                 = var.APP-CONFIGS["SKU"]
 }
-
-
-/*
-    (3). Create appconfig configuration
-    key by passing cosmosdb connection
-    strings into it.
-*/
-
-
-resource "azurerm_app_configuration_key" "test" {
-  configuration_store_id = azurerm_app_configuration.appconf.id
-  key                    = var.APPCONFIG-KEY-VALUE["KEY"]
-  value                  = var.APPCONFIG-KEY-VALUE["VALUE"]
-
-  depends_on = [
-    azurerm_app_configuration.appconf
-  ]
-}

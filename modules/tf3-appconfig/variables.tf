@@ -38,16 +38,3 @@ variable "APP-CONFIGS" {
   description = "appconfig configurations"
 }
 
-
-/*
-    (4). App config secrets values
-*/
-
-
-variable "APPCONFIG-KEY-VALUE" {
-  type = object({
-    KEY   = string
-    VALUE = string
-  })
-  description = "values to be passed to app config"
-}

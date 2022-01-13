@@ -13,6 +13,6 @@
 
 * To destroy the resources, use the follwoing command
 
-    * terraform destroy -auto-approve
+    * `terraform destroy -auto-approve`
 
 Lastly, lock your resource group and cosmosdb in your account inother to prevent accidental delation.

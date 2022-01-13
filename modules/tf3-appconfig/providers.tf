@@ -16,7 +16,7 @@ terraform {
     resource_group_name  = "azMyStoreKeeperConfigurationsRG"
     storage_account_name = "mystorekeeperconfigs"
     container_name       = "terraform-configs"
-    key                  = "core.kopicloud.tfstate"
+    key                  = "mystorekeeper.appconfig.tfstate"
   }
 }
 
