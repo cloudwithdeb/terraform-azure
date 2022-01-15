@@ -14,9 +14,9 @@
 */
 
 
-resource "azurerm_resource_group" "cloudhams-funcs" {
-  name     = ""
-  location = var.global["region"]
+resource "azurerm_resource_group" "mystorekeeper-funcs" {
+  name     = var.RESOURCE_GROUP["NAME"]
+  location = var.RESOURCE_GROUP["LOCATION"]
 }
 
 
@@ -27,9 +27,9 @@ resource "azurerm_resource_group" "cloudhams-funcs" {
 
 
 resource "azurerm_application_insights" "mystorekeeper-func-insight" {
-  name                = "cloudhams-func-insight"
-  location            = azurerm_resource_group.cloudhams-funcs.location
-  resource_group_name = azurerm_resource_group.cloudhams-funcs.name
+  name                = "mystorekeeper-funcs-insight"
+  location            = azurerm_resource_group.mystorekeeper-funcs.location
+  resource_group_name = azurerm_resource_group.mystorekeeper-funcs.name
   application_type    = "web"
 }
 
@@ -43,17 +43,17 @@ resource "azurerm_application_insights" "mystorekeeper-func-insight" {
 
 
 
-resource "azurerm_storage_account" "cloudhams-storage-account" {
+resource "azurerm_storage_account" "mystorekeeper-storage-account" {
   name                     = "${local.az-lower}${var.storage-bucket[0]}"
-  resource_group_name      = azurerm_resource_group.cloudhams-funcs.name
-  location                 = azurerm_resource_group.cloudhams-funcs.location
+  resource_group_name      = azurerm_resource_group.mystorekeeper-funcs.name
+  location                 = azurerm_resource_group.mystorekeeper-funcs.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
 }
 
-resource "azurerm_storage_container" "cloudhams-container" {
-  name                  = "cloudhams-func-files"
-  storage_account_name  = azurerm_storage_account.cloudhams-storage-account.name
+resource "azurerm_storage_container" "mystorekeeper-container" {
+  name                  = "mystorekeeper-func-files"
+  storage_account_name  = azurerm_storage_account.mystorekeeper-storage-account.name
   container_access_type = "private"
 }
 
@@ -63,10 +63,10 @@ resource "azurerm_storage_container" "cloudhams-container" {
 */
 
 
-resource "azurerm_app_service_plan" "signup_cloudhams" {
+resource "azurerm_app_service_plan" "signup_mystorekeeper" {
   name                = "${local.az}${var.app-service[0]}"
-  location            = azurerm_resource_group.cloudhams-funcs.location
-  resource_group_name = azurerm_resource_group.cloudhams-funcs.name
+  location            = azurerm_resource_group.mystorekeeper-funcs.location
+  resource_group_name = azurerm_resource_group.mystorekeeper-funcs.name
   kind                = "FunctionApp"
   reserved            = true
   sku {
@@ -81,23 +81,38 @@ resource "azurerm_app_service_plan" "signup_cloudhams" {
 */
 
 
-resource "azurerm_function_app" "cloudhams-signup-func" {
+resource "azurerm_function_app" "mystorekeeper-signup-func" {
   name                       = "${local.az}${var.func-names[0]}"
-  location                   = azurerm_resource_group.cloudhams-funcs.location
-  resource_group_name        = azurerm_resource_group.cloudhams-funcs.name
-  app_service_plan_id        = azurerm_app_service_plan.signup_cloudhams.id
-  storage_account_name       = azurerm_storage_account.cloudhams-storage-account.name
-  storage_account_access_key = azurerm_storage_account.cloudhams-storage-account.primary_access_key
+  location                   = azurerm_resource_group.mystorekeeper-funcs.location
+  resource_group_name        = azurerm_resource_group.mystorekeeper-funcs.name
+  app_service_plan_id        = azurerm_app_service_plan.signup_mystorekeeper.id
+  storage_account_name       = azurerm_storage_account.mystorekeeper-storage-account.name
+  storage_account_access_key = azurerm_storage_account.mystorekeeper-storage-account.primary_access_key
   https_only                 = true
   os_type                    = "linux"
   version                    = "~3"
   app_settings = {
-    PRIMARY_CONNECTION_STRING      = data.azurerm_storage_account.cloudhams-image.primary_connection_string
-    COSMOSDB_url                   = var.db["COSMOSDB_url"]
-    DATABASE                       = var.db["DATABASE"]
-    HOSPITAL_users                 = var.db["HOSPITAL_users"]
+    DEV_DB_NAME                    = "DEV_mystorekeeper"
+    TEST_DB_NAME                   = "TEST_mystorekeeper"
+    PROD_DB_NAME                   = "PROD_mystorekeeper"
+    DEV_REGISTERED_USERS           = "DEV_REGISTERED_users"
+    TEST_REGISTERED_USERS          = "TEST_REGISTERED_users"
+    PROD_REGISTERED_USERS          = "PROD_REGISTERED_users"
+    DEV_GUEST_USERS                = "DEV_ORG_GUEST_users_login"
+    TEST_GUEST_USERS               = "TEST_ORG_GUEST_users_login"
+    PROD_GUEST_USERS               = "PROD_ORG_GUEST_users_login"
+    DEV_USERS_TABLE                = "DEV_ORG_USERS_table"
+    TEST_USERS_TABLE               = "TEST_ORG_USERS_table"
+    PROD_USERS_TABLE               = "PROD_ORG_USERS_table"
+    DEV_PERMANENT_LOGIN_TABLE      = "DEV_ORG_PER_users_login"
+    TEST_PERMANENT_LOGIN_TABLE     = "TEST_ORG_PER_users_login"
+    PROD_PERMANENT_LOGIN_TABLE     = "PROD_ORG_PER_users_login"
+    DEV_IMAGE_CONTAINER            = "dev-imageuploads"
+    TEST_IMAGE_CONTAINER           = "test-imageuploads"
+    PROD_IMAGE_CONTAINER           = "prod-imageuploads"
+    STORAGE_ACCOUNT_NAME           = "mystorekeeperimglogs210"
     FUNCTIONS_WORKER_RUNTIME       = "python"
-    APPINSIGHTS_INSTRUMENTATIONKEY = azurerm_application_insights.cloudhams-func-insight.instrumentation_key
+    APPINSIGHTS_INSTRUMENTATIONKEY = azurerm_application_insights.mystorekeeper-func-insight.instrumentation_key
   }
 
   site_config {
@@ -106,13 +121,6 @@ resource "azurerm_function_app" "cloudhams-signup-func" {
     cors {
       allowed_origins = ["*"]
     }
-  }
-  tags = {
-    deployed-by = "Owusu Bright Debrah"
-    role        = "Cloud Engineer"
-    contact     = "0548433878"
-    email       = "owusubrightdebrah@gmail.com"
-    purpose     = "Function app for signup"
   }
 }
 

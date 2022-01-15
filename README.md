@@ -36,3 +36,13 @@ Mystorekeeper is a web based, mobile and desktop application, used to manage org
     * terraform apply -auto-approve
 
 TO successfully destroy your resource, use `terraform destroy -auto-approve` to completely destroy all resources.
+
+**Note:**
+After your have successfully deployed the following resources:
+
+* Azure Keyvault
+* Azure Storage Account
+
+With `Azure Keyvault`, after you have succesfully deployed your azure functions and enabled system managed identity, go to pilicies in `Azure Keyvault` and grant `GET`,`LIST` and `SET` permision to this managed Identity.
+
+With `Azure Storage Account`, after you have successfully deployed your azure function, go to IAM of `Azure Storage Account` and give Contributer role of `Data and Table` to this managed Identity.
