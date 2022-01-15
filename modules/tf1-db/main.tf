@@ -59,6 +59,6 @@ resource "azurerm_cosmosdb_account" "db" {
     location          = azurerm_resource_group.mystorekeeper-rg.location
     failover_priority = var.COSMOSDB_CONFIGS["FAILOVER_PRIORITY"]
   }
-
+  
 }
 

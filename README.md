@@ -4,8 +4,8 @@ Mystorekeeper is a web based, mobile and desktop application, used to manage org
 
 ## AZURE SERVICES USED
 
+* Azure keyvault
 * Azure cosmosdb
-* Azure appconfig
 * Azure container app
 * Azure API Management
 * Azure storage account
@@ -14,9 +14,9 @@ Mystorekeeper is a web based, mobile and desktop application, used to manage org
 
 ## OTHER EXTERNAL SERVICES
 
+* Terraform
 * Python
 * Docker
-* Terraform
 * React
 
 ## CLOUD DIAGRAM OF MYSTOREKEEPER
@@ -34,3 +34,5 @@ Mystorekeeper is a web based, mobile and desktop application, used to manage org
     * terraform plan
     * terraform fmt
     * terraform apply -auto-approve
+
+TO successfully destroy your resource, use `terraform destroy -auto-approve` to completely destroy all resources.
