@@ -16,7 +16,7 @@ terraform {
     resource_group_name  = "azMyStoreKeeperConfigurationsRG"
     storage_account_name = "mystorekeeperconfigs"
     container_name       = "terraform-configs"
-    key                  = "mystorekeeper.landingpage-af.tfstate"
+    key                  = "mystorekeeper.landingpagefunctionsapp.tfstate"
   }
 }
 
