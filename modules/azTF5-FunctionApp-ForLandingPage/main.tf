@@ -112,12 +112,11 @@ resource "azurerm_function_app" "mystorekeeper-signup-func" {
     FUNCTIONS_WORKER_RUNTIME       = "python"
     KEYVAULT_NAME                  = "mystorekeeperkeyvault"
     SECRET_NAME                    = "mystorekeeper-conn-strings"
-    DEV_BRANCHES_NAME              = "DEV_ORG_branches"
-    TEST_BRANCHES_NAME             = "TEST_ORG_branches"
-    PROD_BRANCHES_NAME             = "PROD_ORG_branches"
+    DEV_BRANCHES_NAME              = "DEV_ORG_shop_names"
+    TEST_BRANCHES_NAME             = "TEST_ORG_shop_names"
+    PROD_BRANCHES_NAME             = "PROD_ORG_shop_names"
     APPINSIGHTS_INSTRUMENTATIONKEY = data.azurerm_application_insights.mystorekeeper-func-insight.instrumentation_key
   }
-
   site_config {
     linux_fx_version = "Python|3.8"
     always_on        = false
