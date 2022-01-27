@@ -109,12 +109,14 @@ resource "azurerm_function_app" "mystorekeeper-signup-func" {
     TEST_IMAGE_CONTAINER           = "test-imageuploads"
     PROD_IMAGE_CONTAINER           = "prod-imageuploads"
     STORAGE_ACCOUNT_NAME           = "mystorekeeperimglogs210"
-    FUNCTIONS_WORKER_RUNTIME       = "python"
     KEYVAULT_NAME                  = "mystorekeeperkeyvault"
-    SECRET_NAME                    = "mystorekeeper-conn-strings"
+    MONGO_DB_CONN_STR              = "mongodb-connection-url"
     DEV_BRANCHES_NAME              = "DEV_ORG_shop_names"
     TEST_BRANCHES_NAME             = "TEST_ORG_shop_names"
     PROD_BRANCHES_NAME             = "PROD_ORG_shop_names"
+    DEV_WAREHOUSE_NAME             = "DEV_ORG_warehouse_names"
+    TEST_WAREHOUSE_NAME            = "TEST_ORG_warehouse_names"
+    PROD_WAREHOUSE_NAME            = "PROD_ORG_warehouse_names"
     APPINSIGHTS_INSTRUMENTATIONKEY = data.azurerm_application_insights.mystorekeeper-func-insight.instrumentation_key
   }
   site_config {

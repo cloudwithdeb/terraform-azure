@@ -48,9 +48,45 @@ variable "AZURE-KEY-VAULT" {
 */
 
 
-variable "KEYVAULT-SECRETS" {
+variable "KEYVAULT-SECRETS-MONGODB-URL" {
   type = object({
     SECRETS_KEY   = string
     SECRETS_VALUE = string
+  })
+}
+
+
+/*
+    (5). Define Algorithm to be used for login 
+*/
+
+variable "KEYVAULT-SECRETS-ALGORITHM" {
+  type = object({
+    SECRETS_KEY   = string
+    SECRETS_VALUE = string
+  })
+}
+
+
+/*
+    (6). Define secret used for login
+*/
+
+variable "KEYVAULT-SECRETS-SECRETS-KEY" {
+  type = object({
+    SECRETS_KEY   = string
+    SECRETS_VALUE = string
+  })
+}
+
+/*
+    (7). Define expired date for login
+*/
+
+
+variable "KEYVAULT-SECRETS-EXPIRED-DATE" {
+  type = object({
+    SECRETS_KEY   = string
+    SECRETS_VALUE = number
   })
 }

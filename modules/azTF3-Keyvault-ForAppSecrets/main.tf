@@ -46,15 +46,3 @@ resource "azurerm_key_vault" "mystorekeeper-keyvault" {
 
   }
 }
-
-
-/*
-    (2). Add secrets to vault
-*/
-
-
-resource "azurerm_key_vault_secret" "addsecrets-to-keyvault" {
-  name         = var.KEYVAULT-SECRETS["SECRETS_KEY"]
-  value        = var.KEYVAULT-SECRETS["SECRETS_VALUE"]
-  key_vault_id = azurerm_key_vault.mystorekeeper-keyvault.id
-}

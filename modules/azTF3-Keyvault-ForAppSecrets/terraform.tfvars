@@ -40,7 +40,37 @@ AZURE-KEY-VAULT = {
 */
 
 
-KEYVAULT-SECRETS = {
+KEYVAULT-SECRETS-MONGODB-URL = {
   SECRETS_KEY   = "mystorekeeper-conn-strings"
   SECRETS_VALUE = "mongodb://mystorekeeperdb-205:fuGcLrksDPwWN0J8qlxdtXqD18mN4QgGG7PC2ZlynzY0tr46rA6wpfldjJuPYEloxruvksamPMYBKhYSdiv7Ow==@mystorekeeperdb-205.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@mystorekeeperdb-205@"
+}
+
+
+/*
+    (5). Assign algorithm used to generate users token on login
+*/
+
+KEYVAULT-SECRETS-ALGORITHM = {
+  SECRETS_KEY   = "algorithm"
+  SECRETS_VALUE = "HS256"
+}
+
+
+/*
+    (6). Assign secrets value to generate users token on login
+*/
+
+KEYVAULT-SECRETS-SECRETS-KEY = {
+  SECRETS_KEY   = "secret-key"
+  SECRETS_VALUE = "be523d459c62cd420f6093dd6afe11c2784e8c32d7ccb39ece53008534c5c4f5"
+}
+
+
+/*
+    (7). Assign expired date value to generate users token on login
+*/
+
+KEYVAULT-SECRETS-EXPIRED-DATE = {
+  SECRETS_KEY   = "expired-date"
+  SECRETS_VALUE = 1440
 }
